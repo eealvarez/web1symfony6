@@ -11,9 +11,18 @@ class PostController extends AbstractController
     #[Route('/post', name: 'app_post')]
     public function index(): Response
     {
-        return $this->render('post/index.html.twig', [
-            'controller_name' => 'PostController',
-            'controller_mydump' => ['saludoIni'=>'Hola', 'saludoFin'=>'Devs'],
-        ]);
+
+		$this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
+
+		/** @var User $user */
+		$user = $this->getUser();
+
+		return match ($user->isVerified()) {
+			true => $this->render('post/index.html.twig', [
+                'controller_name' => 'PostController',
+                'controller_mydump' => ['saludoIni'=>'Hola', 'saludoFin'=>'Devs'],
+            ]),
+			false => $this->render("post/please-verify-email.html.twig"),
+		};        
     }
 }
