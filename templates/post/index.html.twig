@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {# <h1>Hello {{ controller_name }}! ✅</h1>
 
     This friendly message is coming from:
     <ul>
@@ -17,8 +17,15 @@
         <li>Your template at <code><a href="{{ '/var/www/html/web1symfony6/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
     </ul>
 
-    {{ dump(controller_mydump) }}
+    {{ dump(controller_mydump) }} #}
+
+    {{ form(form) }}
 
     <a href="{{ path('app_logout') }}">Logout</a>
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <br><br><a href="{{ path('admin') }}">Dashboard</a>
+    {% endif %}
+
 </div>
 {% endblock %}

@@ -53,6 +53,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->interactions = new ArrayCollection();
     }
 
+    // Register Magic Method to Print the name of the State e.g California
+    public function __toString() {
+        return $this->email;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
